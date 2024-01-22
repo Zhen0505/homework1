@@ -1,8 +1,6 @@
 package com.example.homework1.service;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +8,8 @@ import org.springframework.stereotype.Service;
 
 import com.example.homework1.dao.TransferRepository;
 import com.example.homework1.entity.Transfer;
+
+import jakarta.transaction.Transactional;
 
 @Service
 public class TransferService {
@@ -44,17 +44,13 @@ public class TransferService {
 		}
 	}
 	
-	public void decreaseMoney(Integer id,Integer money) {
-		Map<String, Object> map=new HashMap<>();
-		map.put("id", id);
-		map.put("money", money);
-		transferR.decreaseMoney(money, id);
-	}
-	
-	public void addMoney(Integer id,Integer money) {
-		Map<String, Object> map=new HashMap<>();
-		map.put("id", id);
-		map.put("money", money);
-		transferR.decreaseMoney(money, id);
-	}
+	@Transactional
+	public void transfer(Integer fromAccountId, Integer toAccountId, Integer money) {
+
+        // User A 扣除轉帳金額
+        transferR.decreaseMoney(fromAccountId, money);
+
+        // User B 收到轉入金額
+        transferR.addMoney(toAccountId, money);
+    }
 }

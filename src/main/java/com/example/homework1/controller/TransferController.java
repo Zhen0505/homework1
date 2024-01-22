@@ -9,8 +9,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.homework1.dto.TransferRequest;
 import com.example.homework1.entity.Transfer;
 import com.example.homework1.service.TransferService;
+
 
 @RestController
 @RequestMapping("/transfer")
@@ -33,6 +35,18 @@ public class TransferController {
 	public Transfer login(@RequestBody Transfer rg) {
 		return transferS.login(rg);
 	}
+	
+	@PostMapping("/transfer")
+    public String transfer(@RequestBody TransferRequest transferRequest) {
+
+		transferS.transfer(
+                transferRequest.getFrom(),
+                transferRequest.getTo(),
+                transferRequest.getMoney()
+        );
+
+        return "轉帳成功!";
+    }
 	
 
 }

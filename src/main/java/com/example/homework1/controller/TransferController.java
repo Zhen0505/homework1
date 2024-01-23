@@ -21,22 +21,22 @@ public class TransferController {
 	@Autowired
 	private TransferService transferS;
 	
-	@GetMapping("/getlist")
+	@GetMapping(value = "/getlist")
 	public List<Transfer> geTransfers(){
 		return transferS.geTransfers();
 	}
 	
-	@PostMapping("/register")
+	@PostMapping(value = "/register")
 	public Transfer register(@RequestBody Transfer rg) {
 		return transferS.register(rg);
 	}
 	
-	@PostMapping("/login")
+	@PostMapping(value = "/login")
 	public Transfer login(@RequestBody Transfer rg) {
 		return transferS.login(rg);
 	}
 	
-	@PostMapping("/transfer")
+	@PostMapping(value = "/transfer")
     public String transfer(@RequestBody TransferRequest transferRequest) {
 
 		transferS.transfer(
@@ -48,5 +48,26 @@ public class TransferController {
         return "轉帳成功!";
     }
 	
+	@PostMapping(value = "/register2")
+	public String register2(@RequestBody Transfer rg) {
+		return transferS.register2(rg);
+	}
+	
+	@PostMapping(value = "/login2")
+	public String login2(@RequestBody Transfer rg) {
+		return transferS.login2(rg);
+	}
+	
+	@PostMapping(value = "/transfer2")
+    public String transfer2(@RequestBody TransferRequest transferRequest) {
+
+		String result=transferS.transfer2(
+                transferRequest.getFrom(),
+                transferRequest.getTo(),
+                transferRequest.getMoney()
+        );
+		
+        return result;
+    }
 
 }

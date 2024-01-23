@@ -59,6 +59,8 @@ public class TransferService {
 		Integer rid=rg.getId();
 		Optional<Transfer> oid=transferR.findById(rid);
 		if(oid.isEmpty()) {
+			rg.setBalance(1000);
+//			rg.setFixeddeposit(0);
 			transferR.save(rg);
 			return "註冊成功!";
 		}

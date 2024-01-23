@@ -124,7 +124,7 @@ public class TransferService {
 		}
 		
 		else {
-			return"轉帳失敗，轉帳號不存在!";
+			return"轉帳失敗，轉入帳號不存在!";
 		}
     }
 }

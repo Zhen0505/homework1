@@ -2,6 +2,7 @@ package com.example.homework1.entity;
 
 import java.time.LocalDate;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -20,9 +21,14 @@ public class FixedDeposit {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Integer id;
 	
-	private Integer amount;  // 定存金额
-    private LocalDate startDate; // 定存起始日期
-    private Integer durationMonths;  // 定存期限（月数）
+	@Column(name = "amount")
+	Integer amount;  // 定存金额
+	
+	@Column(name = "start_date")
+    LocalDate startDate; // 定存起始日期
+    
+	@Column(name = "duration_months")
+    Integer durationMonths;  // 定存期限（月数）
 	
 	@ManyToOne
 	@JoinColumn(name = "transfer_fk")

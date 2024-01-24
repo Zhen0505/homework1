@@ -4,12 +4,14 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.homework1.dto.TransferRequest;
+import com.example.homework1.entity.FixedDeposit;
 import com.example.homework1.entity.Transfer;
 import com.example.homework1.service.TransferService;
 
@@ -70,4 +72,9 @@ public class TransferController {
         return result;
     }
 
+	@PostMapping(value = "/fd/{id}")
+	public List<FixedDeposit> fddd(@PathVariable Integer id
+			,@RequestBody FixedDeposit fd) {
+		return transferS.fdd(id, fd);
+	}
 }

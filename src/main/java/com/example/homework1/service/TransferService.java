@@ -1,12 +1,14 @@
 package com.example.homework1.service;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.homework1.dao.TransferRepository;
+import com.example.homework1.dao.TransferRepository;import com.example.homework1.entity.FixedDeposit;
 import com.example.homework1.entity.Transfer;
 
 import jakarta.transaction.Transactional;
@@ -129,4 +131,31 @@ public class TransferService {
 			return"轉帳失敗，轉入帳號不存在!";
 		}
     }
+	
+	public List<FixedDeposit> fdd(Integer id,FixedDeposit fd) {
+		
+		Integer amount=fd.getAmount();
+		LocalDate date=fd.getStartDate();
+		Integer month=fd.getDurationMonths();
+		
+		FixedDeposit newfd=new FixedDeposit();
+		newfd.setAmount(amount);
+		newfd.setDurationMonths(month);
+		newfd.setStartDate(date);
+		
+		Optional<Transfer> transfer=transferR.findById(id);
+		Transfer tf=transfer.get();
+		
+		List<FixedDeposit> fds=new ArrayList<>();
+		fds.add(newfd);
+		
+		
+		newfd.setTransfer(tf);
+		tf.setFixedDeposits(fds);
+		
+		transferR.save(tf);
+		
+		return fds;
+	}
+	
 }

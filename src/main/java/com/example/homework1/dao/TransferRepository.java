@@ -19,5 +19,4 @@ public interface TransferRepository extends JpaRepository<Transfer, Integer> {
 	@Query(value = "UPDATE TEST  SET BALANCE  = BALANCE  + :money WHERE ID = :id", nativeQuery = true)
 	void addMoney(@Param("id") Integer id,@Param("money") Integer money);
 	
-	
 }
